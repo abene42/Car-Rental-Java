@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrental.LoginController">
+   <top>
+      <Pane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #00aac6;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="14.0" layoutY="13.0" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="Georgia Bold" size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </top>
+   <bottom>
+      <Pane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #00aac6;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="328.0" layoutY="13.0" text="Car Rental System" textFill="WHITE">
+               <font>
+                  <Font name="Georgia Bold" size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </bottom>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="fieldUname" layoutX="150.0" layoutY="80.0" prefWidth="250.0" promptText="Username" text="admin" />
+            <PasswordField fx:id="fieldPass" layoutX="150.0" layoutY="125.0" prefWidth="250.0" promptText="Password" text="pass" />
+            <Button fx:id="btnLogin" layoutX="345.0" layoutY="170.0" mnemonicParsing="false" onAction="#checker" text="Login">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Label fx:id="labelWarning" contentDisplay="CENTER" layoutX="100.0" layoutY="243.0" prefWidth="400.0" textAlignment="RIGHT" textFill="RED" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

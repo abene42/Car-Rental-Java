@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1266.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrental.HomeController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <BorderPane prefHeight="25.0" BorderPane.alignment="CENTER">
+               <top>
+                  <MenuBar fx:id="bar" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Menus">
+                          <items>
+                              <MenuItem mnemonicParsing="false" onAction="#toCustomerRegister" text="Customer Register" />
+                              <MenuItem mnemonicParsing="false" onAction="#toCarRegister" text="Car Register" />
+                              <MenuItem mnemonicParsing="false" onAction="#toEmployeeRegister" text="Employee Register" />
+                              <MenuItem mnemonicParsing="false" onAction="#toLogin" text="Logout" />
+                              <MenuItem mnemonicParsing="false" onAction="#toCarList" text="Available Cars" />
+                              <MenuItem mnemonicParsing="false" onAction="#toRentedCarList" text="Rented Car List" />
+                              <MenuItem mnemonicParsing="false" onAction="#exit" text="Close" />
+                          </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="About Us">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+               </top>
+            </BorderPane>
+         </top>
+         <right>
+            <AnchorPane style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="284.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="WELCOME TO OUR CAR RENTAL SYSTEM" wrapText="true" AnchorPane.bottomAnchor="509.0" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="284.0" AnchorPane.topAnchor="25.0">
+                     <font>
+                        <Font name="Georgia" size="35.0" />
+                     </font>
+                     <textFill>
+                        <RadialGradient centerX="0.5277777777777778" centerY="0.49047619047619045" radius="0.5">
+                           <stops>
+                              <Stop color="RED" />
+                              <Stop color="#4d0101" offset="1.0" />
+                           </stops>
+                        </RadialGradient>
+                     </textFill>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="533.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="295.4347381591797" AnchorPane.leftAnchor="533.0" AnchorPane.rightAnchor="533.0" AnchorPane.topAnchor="137.0">
+                     <image>
+                        <Image url="@Pictures/carLogo.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

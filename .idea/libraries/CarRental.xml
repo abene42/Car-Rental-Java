@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="CarRental">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/run307482247/CarRental.jar!/" />
+      <root url="jar://E:/App/mysql-&amp;-mssql-connector-java-5.1/mysql-connector-java-5.1.45/mysql-connector-java-5.1.45-bin.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

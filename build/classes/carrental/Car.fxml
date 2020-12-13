@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrental.CarController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0">
+         <center>
+            <Pane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #f3f2f2;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label contentDisplay="CENTER" layoutX="67.0" layoutY="61.0" nodeOrientation="LEFT_TO_RIGHT" text="Car Model">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" right="5.0" top="3.0" />
+                     </padding>
+                  </Label>
+                  <Label contentDisplay="CENTER" layoutX="67.0" layoutY="94.0" nodeOrientation="LEFT_TO_RIGHT" text="Plate N0.">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" right="5.0" top="3.0" />
+                     </padding>
+                  </Label>
+                  <Label contentDisplay="CENTER" layoutX="67.0" layoutY="160.0" nodeOrientation="LEFT_TO_RIGHT" text="Type">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" right="5.0" top="3.0" />
+                     </padding>
+                  </Label>
+                  <Label contentDisplay="CENTER" layoutX="67.0" layoutY="127.0" nodeOrientation="LEFT_TO_RIGHT" text="Company">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" right="5.0" top="3.0" />
+                     </padding>
+                  </Label>
+                  <Label contentDisplay="CENTER" layoutX="67.0" layoutY="262.0" nodeOrientation="LEFT_TO_RIGHT" text="Production Year">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" right="5.0" top="3.0" />
+                     </padding>
+                  </Label>
+                  <Label contentDisplay="CENTER" layoutX="67.0" layoutY="295.0" nodeOrientation="LEFT_TO_RIGHT" text="Picture">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" right="5.0" top="3.0" />
+                     </padding>
+                  </Label>
+                  <Label contentDisplay="CENTER" layoutX="67.0" layoutY="229.0" nodeOrientation="LEFT_TO_RIGHT" text="Engine Model">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" right="5.0" top="3.0" />
+                     </padding>
+                  </Label>
+                  <Label contentDisplay="CENTER" layoutX="67.0" layoutY="196.0" nodeOrientation="LEFT_TO_RIGHT" text="Color">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" right="5.0" top="3.0" />
+                     </padding>
+                  </Label>
+                  <Label contentDisplay="CENTER" layoutX="67.0" layoutY="322.0" nodeOrientation="LEFT_TO_RIGHT" text="Buying Price">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" right="5.0" top="3.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="fieldModel" layoutX="230.0" layoutY="60.0" prefWidth="200.0" style="-fx-border-radius: 15;">
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="fieldPlate" layoutX="230.0" layoutY="93.0" prefWidth="200.0">
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="fieldCompany" layoutX="231.0" layoutY="126.0" prefWidth="200.0">
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="fieldEngine" layoutX="230.0" layoutY="228.0" prefWidth="200.0">
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="fieldPicture" editable="false" layoutX="230.0" layoutY="295.0" prefHeight="26.0" prefWidth="145.0">
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="fieldPrice" layoutX="230.0" layoutY="327.0" prefWidth="200.0">
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Button layoutX="377.0" layoutY="369.0" mnemonicParsing="false" onAction="#writeCarIntoDB" text="Submit" />
+                  <DatePicker fx:id="pickerDate" layoutX="230.0" layoutY="262.0" prefHeight="25.0" prefWidth="200.0" promptText="Production Year" />
+                  <ColorPicker fx:id="pickerColor" layoutX="231.0" layoutY="196.0" prefHeight="25.0" prefWidth="200.0" promptText="Car Color" />
+                  <ComboBox fx:id="comboType" layoutX="231.0" layoutY="160.0" prefWidth="200.0" promptText="Car Type" />
+                  <Button layoutX="376.0" layoutY="296.0" mnemonicParsing="false" onAction="#carChooser" prefHeight="25.0" prefWidth="56.0" text="Choose" />
+               </children>
+            </Pane>
+         </center>
+         <top>
+            <BorderPane prefHeight="70.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <center>
+                  <Pane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #00aac6;" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="20.0" layoutY="17.0" text="Register Car" textFill="WHITE">
+                           <font>
+                              <Font name="Georgia Bold" size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </center>
+               <top>
+                  <MenuBar fx:id="bar" prefHeight="25.0" BorderPane.alignment="CENTER">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="Menus">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#toCustomerRegister" text="Customer Register" />
+                              <MenuItem mnemonicParsing="false" onAction="#toCarRegister" text="Car Register" />
+                              <MenuItem mnemonicParsing="false" onAction="#toEmployeeRegister" text="Employee Register" />
+                              <MenuItem mnemonicParsing="false" onAction="#toLogin" text="Logout" />
+                              <MenuItem mnemonicParsing="false" onAction="#toCarList" text="Available Cars" />
+                              <MenuItem mnemonicParsing="false" onAction="#toRentedCarList" text="Rented Car List" />
+                              <MenuItem mnemonicParsing="false" onAction="#exit" text="Close" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="About Us">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="About" />
+                           </items>
+                        </Menu>
+                     </menus>
+                  </MenuBar>
+               </top>
+            </BorderPane>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

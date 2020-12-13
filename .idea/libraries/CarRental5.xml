@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="CarRental5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/run484271387/CarRental.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
