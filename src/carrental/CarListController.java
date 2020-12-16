@@ -37,7 +37,7 @@ public class CarListController extends SuperClass implements Initializable {
                 String selectedItem = listCar.getSelectionModel().getSelectedItem().toString();
                 try {
                     ps=con.prepareStatement("select * from car where Model=?");
-                    ps.setString(1,selectedItem);
+                    ps.setString(1,selectedItem); //model=selectedItem
                     rs=ps.executeQuery();
                     rs.next();
                     String model = rs.getString("Model");
@@ -52,21 +52,21 @@ public class CarListController extends SuperClass implements Initializable {
                     labelType.setText(rs.getString("Type"));
                     labelYear.setText(String.valueOf(rs.getInt("Production_Year")));
                     labelPrice.setText(rs.getString("Renting_Price"));
-                    ps=con.prepareStatement("select count(Model) as amount from car where Model=?");
+                    ps=con.prepareStatement("select count(Model) as amount from car where Model=?"); //same models
                     ps.setString(1,selectedItem);
                     rs=ps.executeQuery();
                     rs.next();
                     labelAmount.setText(String.valueOf(rs.getInt("amount")));
                     if(rating(model)<=5){
-                        imageRate.setImage(new Image("file:///"+new File("D:\\Documents\\Final_Projects\\AP\\CarRental\\src\\carrental\\Pictures\\Stars\\1star.png").getAbsolutePath().replace("\\","/")));
+                        imageRate.setImage(new Image("file:///"+new File("C:\\Java\\Car-Rental-Java\\src\\carrental\\Pictures\\Stars\\1star.png").getAbsolutePath().replace("\\","/")));
                     }else if(rating(model)>=5 && rating(model)<15){
-                        imageRate.setImage(new Image("file:///"+new File("D:\\Documents\\Final_Projects\\AP\\CarRental\\src\\carrental\\Pictures\\Stars\\2star.png").getAbsolutePath().replace("\\","/")));
+                        imageRate.setImage(new Image("file:///"+new File("C:\\Java\\Car-Rental-Java\\src\\carrental\\Pictures\\Stars\\2star.png").getAbsolutePath().replace("\\","/")));
                     }else if(rating(model)>=15 && rating(model)<30){
-                        imageRate.setImage(new Image("file:///"+new File("D:\\Documents\\Final_Projects\\AP\\CarRental\\src\\carrental\\Pictures\\Stars\\3star.png").getAbsolutePath().replace("\\","/")));
+                        imageRate.setImage(new Image("file:///"+new File("C:\\Java\\Car-Rental-Java\\src\\carrental\\Pictures\\Stars\\3star.png").getAbsolutePath().replace("\\","/")));
                     }else if(rating(model)>=30 && rating(model)<45){
-                        imageRate.setImage(new Image("file:///"+new File("D:\\Documents\\Final_Projects\\AP\\CarRental\\src\\carrental\\Pictures\\Stars\\4star.png").getAbsolutePath().replace("\\","/")));
+                        imageRate.setImage(new Image("file:///"+new File("C:\\Java\\Car-Rental-Java\\src\\carrental\\Pictures\\Stars\\4star.png").getAbsolutePath().replace("\\","/")));
                     }else if(rating(model)>=45){
-                        imageRate.setImage(new Image("file:///"+new File("D:\\Documents\\Final_Projects\\AP\\CarRental\\src\\carrental\\Pictures\\Stars\\5star.png").getAbsolutePath().replace("\\","/")));
+                        imageRate.setImage(new Image("file:///"+new File("C:\\Java\\Car-Rental-Java\\src\\carrental\\Pictures\\Stars\\5star.png").getAbsolutePath().replace("\\","/")));
                     }
 
                     ps=con.prepareStatement("select Color from car where Plate=?");

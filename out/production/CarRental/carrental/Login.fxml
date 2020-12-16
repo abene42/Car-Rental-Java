@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrental.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="carrental.LoginController">
    <top>
       <Pane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #00aac6;" BorderPane.alignment="CENTER">
          <children>
@@ -30,8 +34,8 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="fieldUname" layoutX="150.0" layoutY="80.0" prefWidth="250.0" promptText="Username" text="admin" />
-            <PasswordField fx:id="fieldPass" layoutX="150.0" layoutY="125.0" prefWidth="250.0" promptText="Password" text="pass" />
+            <TextField fx:id="fieldUname" layoutX="150.0" layoutY="80.0" prefWidth="250.0" promptText="Username" />
+            <PasswordField fx:id="fieldPass" layoutX="150.0" layoutY="125.0" prefWidth="250.0" promptText="Password" />
             <Button fx:id="btnLogin" layoutX="345.0" layoutY="170.0" mnemonicParsing="false" onAction="#checker" text="Login">
                <font>
                   <Font size="14.0" />

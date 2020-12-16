@@ -11,6 +11,8 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -23,6 +25,7 @@ public class RentedCarList extends SuperClass implements Initializable {
     String customerID;
     String picture;
     String selectedCarPlate;
+    String selectedCarModel;
 
 
     @FXML
@@ -33,12 +36,15 @@ public class RentedCarList extends SuperClass implements Initializable {
         listCar.getItems().clear();
         try {
             // to get all rented cars
-            ps=con.prepareStatement("select * from rented_car_list where Is_Rented= true");
-            rs = ps.executeQuery();
+            PreparedStatement localPS;
+            ResultSet localRS;
+            localPS=con.prepareStatement("select * from rented_car_list where Is_Rented= 1");
+            localRS=localPS.executeQuery();
 
             // add rented cars into the rented car list
-            while (rs.next()) {
-                String plate = rs.getString("Plate");
+            while (localRS.next()) {
+                String plate = localRS.getString("Plate");
+                System.out.println(localRS.getString("Plate"));
 //                customerID = rs.getString("Customer_ID");
 
                 ps=con.prepareStatement("select * from car where Plate=?");
@@ -60,16 +66,17 @@ public class RentedCarList extends SuperClass implements Initializable {
             listCar.setOnMouseClicked(e->{
                 String selectedItem = listCar.getSelectionModel().getSelectedItem().toString();// get the selected item
                 selectedCarPlate = selectedItem.substring(selectedItem.indexOf("[")+1,selectedItem.indexOf("]"));
-                System.out.println(selectedCarPlate);
+                selectedCarModel = selectedItem.substring(0,selectedItem.indexOf(','));
+                System.out.println(selectedCarPlate + selectedCarModel);
                 try {
                     ps=con.prepareStatement("select * from rented_car_list where Plate=?");
                     ps.setString(1,selectedCarPlate);
                     rs=ps.executeQuery();
                     rs.next();
                     customerID = rs.getString("Customer_ID");
-                    Date date_of_rent = rs.getDate("Date_Of_Rent");
-                    Calendar cal = Calendar.getInstance();
-                    String daysLeft = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+//                    Date date_of_rent = rs.getDate("Date_Of_Rent");
+//                    Calendar cal = Calendar.getInstance();
+//                    String daysLeft = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
 
                     ps=con.prepareStatement("select Picture from car where Plate=?");
                     ps.setString(1,selectedCarPlate);
@@ -98,7 +105,7 @@ public class RentedCarList extends SuperClass implements Initializable {
                 }
             });
 
-            ps.close();
+//            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -119,11 +126,21 @@ public class RentedCarList extends SuperClass implements Initializable {
         String item = listCar.getSelectionModel().getSelectedItem().toString();
 
         ps=con.prepareStatement("update rented_car_list set Is_Rented=? where Plate=?");
-        ps.setBoolean(1,false);
+        ps.setInt(1,0);
         ps.setString(2,selectedCarPlate);
         ps.executeUpdate();
-        displayCar();
+//
+//        ps=con.prepareStatement("select Amount from car_status where Model=?");
+//        ps.setString(1,selectedCarModel);
+//        rs=ps.executeQuery();
+//        rs.next();
+
+        ps=con.prepareStatement("update car_status set Amount= Amount + 1 where Model=?");
+        ps.setString(1,selectedCarModel);
+        ps.executeUpdate();
+
         clearFields();
+        displayCar();
     }
 
     @FXML
@@ -131,7 +148,7 @@ public class RentedCarList extends SuperClass implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation!");
         alert.setHeaderText(null);
-        alert.setContentText("Are you Sure?");
+        alert.setContentText("Are you Sure it is returned?");
         alert.showAndWait().ifPresent(response->{
             if (response == ButtonType.OK){
                 try {

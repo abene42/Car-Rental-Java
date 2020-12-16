@@ -20,20 +20,22 @@ public class LoginController extends SuperClass{
     protected Button btnLogin;
 
     @FXML
-    private void checker() {
+    private void authentication() {
+        //is user
         String pass;
        if(checkEmpty()==1 && connect()){
            try {
-               st=con.createStatement();
-               String query = "select Passkey from employee where Username='"+fieldUname.getText()+"';";
-               rs = st.executeQuery(query);
+//               st=con.createStatement();
+//               String query = "select Passkey from employee where Username='"+fieldUname.getText()+"';";
+//               rs = st.executeQuery(query);
+               ps=con.prepareStatement("select Passkey from employee where Username=?"); //preparation
+               ps.setString(1,fieldUname.getText());
+               rs=ps.executeQuery();
+
                if (rs.next()){
                    pass = rs.getString("Passkey");
                    if (pass.equals(fieldPass.getText())) {
-                       username=fieldUname.getText();
-//                       rmiLookup();
-//                       interfaceA.bla();
-//                       interfaceA.toHome(btnLogin);
+//                       username=fieldUname.getText();
                        toHome();
                    } else {
                        Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -50,7 +52,6 @@ public class LoginController extends SuperClass{
                    alert.setContentText("User not found!");
                    alert.showAndWait();
                }
-               st.close();
            }
            catch (Exception e) {
                e.printStackTrace();
@@ -64,7 +65,6 @@ public class LoginController extends SuperClass{
            alert.showAndWait();
        }
 }
-
     private int checkEmpty(){
         if(fieldUname.getText().length()==0){
             return 0;
@@ -74,6 +74,4 @@ public class LoginController extends SuperClass{
         }
         return 1;
     }
-
-    
 }

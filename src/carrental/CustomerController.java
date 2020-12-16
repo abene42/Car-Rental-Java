@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -59,20 +60,28 @@ public class CustomerController extends SuperClass implements Initializable {
                 int amount = rs.getInt("Amount");
 
                 if(amount > 0){
-                    amount--;
-                    ps=con.prepareStatement("update car_status set Amount=? where Model=?");
-                    ps.setInt(1,amount);
-                    ps.setString(2,model);
+                    ps=con.prepareStatement("update car_status set Amount=Amount-1, Rent_Times=Rent_Times+1 where Model=?");
+                    ps.setString(1,model);
                     ps.executeUpdate();
                 }
 
-                ps=con.prepareStatement("insert into rented_car_list(Plate,Customer_ID,Is_Rented,Date_Of_Rent) " +
-                        "values(?,?,?,?)");
-                ps.setString(1,plate);
-                ps.setString(2,fieldKebeleID.getText());
-                ps.setBoolean(3,true);
-                ps.setDate(4, Date.valueOf(LocalDate.now()));
-                ps.executeUpdate();
+                try {
+                    ps=con.prepareStatement("insert into rented_car_list(Plate,Customer_ID,Is_Rented,Date_Of_Rent) " +
+                            "values(?,?,?,?)");
+                    ps.setString(1,plate);
+                    ps.setString(2,fieldKebeleID.getText());
+                    ps.setInt(3,1);
+                    ps.setDate(4, Date.valueOf(LocalDate.now()));
+                    ps.executeUpdate();
+
+                }catch (SQLIntegrityConstraintViolationException e){
+                    ps=con.prepareStatement("update rented_car_list set Customer_ID=?,Is_Rented=?,Date_Of_Rent=? where Plate=?" +
+                            "values(?,?,?,?)");
+                    ps.setString(1,fieldKebeleID.getText());
+                    ps.setInt(2,1);
+                    ps.setDate(3, Date.valueOf(LocalDate.now()));
+                    ps.setString(4,plate);
+                }
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success!");
@@ -145,8 +154,12 @@ public class CustomerController extends SuperClass implements Initializable {
     private void populateCombo(){
         comboCar.getItems().clear();
         try{
-            st=con.createStatement();
-            rs=st.executeQuery("select Model from car_status where Amount > 0");
+//            st=con.createStatement();
+//            rs=st.executeQuery("select Model from car_status where Amount > 0");
+
+            ps=con.prepareStatement("select Model from car_status where Amount > 0");
+            rs=ps.executeQuery();
+
             while (rs.next()){
                 comboCar.getItems().add(rs.getString("Model"));
             }
@@ -158,7 +171,6 @@ public class CustomerController extends SuperClass implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         fieldPhone.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,String newValue) {

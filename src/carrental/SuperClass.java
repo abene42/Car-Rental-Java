@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +20,6 @@ import javafx.stage.Stage;
 public class SuperClass {
 
     Connection con;
-    Statement st=null;
     ResultSet rs=null;
     PreparedStatement ps;
     static String username="TestUser";
@@ -30,14 +28,14 @@ public class SuperClass {
 
     public SuperClass() {
         connect();
-    }
+    } //called wherever superclass is instantiated
 
     @FXML
     protected Button btnLogin;
 
     public boolean connect(){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver"); //load driver
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/car_rental", "root", "");
             System.out.println("Database Connected!");
             return true;
@@ -50,18 +48,18 @@ public class SuperClass {
                     e.getMessage());
             alert.showAndWait();
         }catch(Exception ex){
-
+            ex.printStackTrace();
         }
         return false;
     }
-
+    //load homepage
     @FXML
     protected void toHome() throws Exception {
         Parent parent = FXMLLoader.load(getClass().getResource("Home.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) btnLogin.getScene().getWindow();
 
-        stage.setScene(scene);
+        stage.setScene(scene);    //set the scene of the stage to the earlier defined scene variable(has parent already)
         stage.setTitle("Car Rental Software");
         stage.setMaximized(true);
         stage.show();
@@ -71,7 +69,7 @@ public class SuperClass {
     protected void toCarRegister() throws Exception {
         Parent parent = FXMLLoader.load(getClass().getResource("Car.fxml"));
         Scene scene = new Scene(parent);
-        Stage stage = (Stage) bar.getScene().getWindow();
+        Stage stage = (Stage) bar.getScene().getWindow();   //bar=menu bar
 
         stage.setScene(scene);
         stage.setTitle("Car Form");
@@ -144,7 +142,7 @@ public class SuperClass {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Are you Sure?");
         alert.setHeaderText(null);
-        alert.setContentText("Are you Sure To Exit?");
+        alert.setContentText("Are you sure you want to exit?");
         alert.showAndWait().ifPresent(response->{
             if (response == ButtonType.OK){
                 System.exit(0);

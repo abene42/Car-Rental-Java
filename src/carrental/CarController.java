@@ -12,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ResourceBundle;
 
 public class CarController extends SuperClass implements Initializable {
@@ -26,7 +28,7 @@ public class CarController extends SuperClass implements Initializable {
     @FXML
     private void writeCarIntoDB() {
         try {
-           connect();
+//           connect();
             ps=con.prepareStatement("insert into car(Model,Plate,Type,Engine_Model,Buying_Price,Production_Year,Picture,Renting_Price,Color,Company)" +
                     " values(?,?,?,?,?,?,?,?,?,?);");
             if (checkIfEmpty() == 1) {
@@ -46,22 +48,18 @@ public class CarController extends SuperClass implements Initializable {
                 ps.executeUpdate();
 
 //                To increment the amount of car available
-                ps = con.prepareStatement("select * from car_status where Model = ?");
-                ps.setString(1,fieldModel.getText());
-                rs = ps.executeQuery();
-
-
-                if(rs.next()){
-                    int amount = rs.getInt("Amount") + 1;
-                    ps = con.prepareStatement("update car_status set Amount=? where Model=?");
-                    ps.setInt(1,amount);
-                    ps.setString(2,fieldModel.getText());
-                    ps.executeUpdate();
-                }else{
+//                ps = con.prepareStatement("select * from car_status where Model = ?");
+//                ps.setString(1,fieldModel.getText());
+//                rs = ps.executeQuery();
+                try{
                     ps = con.prepareStatement("insert into car_status(Model,Amount,Rent_Times) values (?,?,?)");
                     ps.setString(1,fieldModel.getText());
                     ps.setInt(2,1);
                     ps.setInt(3,0);
+                    ps.executeUpdate();
+                }catch (SQLIntegrityConstraintViolationException e){// To check if the key constraint is violated. If so, update rather than inserting
+                    ps = con.prepareStatement("update car_status set Amount=Amount+1 where Model=?");
+                    ps.setString(1,fieldModel.getText());
                     ps.executeUpdate();
                 }
 
@@ -71,7 +69,7 @@ public class CarController extends SuperClass implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Car successfully submitted!");
                 alert.showAndWait();
-//                clearFieldsReg();
+                clearFieldsReg();
             } else if (checkIfEmpty() == 0) {
 //                Alert for empty fields
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -80,7 +78,15 @@ public class CarController extends SuperClass implements Initializable {
                 alert.setContentText("No empty entry is allowed!");
                 alert.showAndWait();
             }
-        } catch (Exception e) {
+        } catch (SQLIntegrityConstraintViolationException e) {  //d/t car same key
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Failed!");
+            alert.setHeaderText(null);
+            alert.setContentText("A car with that Plate Number is already in the database!"+e.getLocalizedMessage());
+            alert.showAndWait();
+
+        }catch (SQLException e){
             e.printStackTrace();
         }
     }
@@ -124,18 +130,16 @@ public class CarController extends SuperClass implements Initializable {
         fieldPlate.clear();
         fieldCompany.clear();
         fieldEngine.clear();
-//        comboType.setValue(null);
         fieldPicture.clear();
         fieldPrice.clear();
         pickerDate.setValue(null);
-//        pickerColor.setValue(null);
     }
 
     //Algorithm to calculate the renting price
     private int calculateRentingPrice(Double buyingPrice){
-        Double floatPrice = (buyingPrice/(10*52));// buying price / (year required to replace the buying price * number of weeks in a year)
+        Double doublePrice = (buyingPrice/(10*52));// buying price / (year required to replace the buying price * number of weeks in a year)
         // assuming the car will be rented at least once every week
-        return floatPrice.intValue();
+        return doublePrice.intValue();
     }
 
 
@@ -152,7 +156,8 @@ public class CarController extends SuperClass implements Initializable {
         filePath = file.getAbsolutePath();
         fieldPicture.setText(filePath);
     }
-    
+
+    //validation
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fieldPrice.textProperty().addListener((observable, oldValue, newValue) -> {
